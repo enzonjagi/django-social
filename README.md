@@ -14,7 +14,7 @@
 - Bulma CSS
 
 ## Steps to Create
-### Tutorial Series from: Real Python
+### Tutorial Series from: [Real Python](https://realpython.com/)
 - 📍 [Part 1: Models and Relationships](https://realpython.com/django-social-network-1/)
     * Step 1: Set Up the Base Project
     * Step 2: Extend the Django User Model
