@@ -16,3 +16,13 @@ def profile_list(request):
         "dwitter/profile_list.html",
         {"profiles": profiles},
     )
+
+def profile(request, pk):
+    """An individual view of each profile"""
+
+    profile = Profile.objects.get(pk=pk)
+    return render(
+        request,
+        "dwitter/profile.html",
+        {"profile": profile},
+    )
