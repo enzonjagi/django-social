@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from .models import Profile
+from .forms import DweetForm
 
 # Create your views here.
 def dashboard(request):
     """Renders the base.html template on the app's dashboard"""
 
-    return render(request, "dwitter/dashboard.html")
+    form = DweetForm()
+    return render(request, "dwitter/dashboard.html", {"form": form})
 
 def profile_list(request):
     """Creates a profile list from the Profiles created in the DB"""
