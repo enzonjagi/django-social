@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Profile
 from .forms import DweetForm
 
@@ -6,9 +6,9 @@ from .forms import DweetForm
 def dashboard(request):
     """Renders the base.html template on the app's dashboard"""
 
-    # Checks for a HTTP POST request to create a Dweet 
+    # Checks for a HTTP POST request to create a Dweet
+    form = DweetForm(request.POST or None)
     if request.method == "POST":
-        form = DweetForm(request.POST)
         # and then checks the validity of the form 
         # to then save the form input as a dweet, 
         # assigns the dweet to the user that sent the request, 
@@ -17,7 +17,7 @@ def dashboard(request):
             dweet = form.save(commit=False)
             dweet.user = request.user
             dweet.save()
-    form = DweetForm()
+            return redirect("dwitter:dashboard")
     return render(request, "dwitter/dashboard.html", {"form": form})
 
 def profile_list(request):

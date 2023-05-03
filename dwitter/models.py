@@ -42,7 +42,7 @@ class Dweet(models.Model):
         related_name="dweets",
         on_delete=models.DO_NOTHING,
     )
-    body = models.CharField(max_length=400)
+    body = models.CharField(max_length=140)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -51,5 +51,5 @@ class Dweet(models.Model):
         return (
             f"{self.user} "
             f"({self.created_at:%Y-%m-%d %H:%M}): "
-            f"{self.body[:100]}..."
+            f"{self.body[:30]}..."
         )
