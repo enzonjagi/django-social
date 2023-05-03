@@ -5,7 +5,7 @@ from .models import Profile
 def dashboard(request):
     """Renders the base.html template on the app's dashboard"""
 
-    return render(request, "base.html")
+    return render(request, "dwitter/dashboard.html")
 
 def profile_list(request):
     """Creates a profile list from the Profiles created in the DB"""
