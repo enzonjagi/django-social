@@ -1,11 +1,32 @@
-from django.shortcuts import render
-from .models import Profile
+from django.shortcuts import render, redirect
+from .models import Profile, Dweet
+from .forms import DweetForm
 
 # Create your views here.
 def dashboard(request):
     """Renders the base.html template on the app's dashboard"""
 
-    return render(request, "dwitter/dashboard.html")
+    # Checks for a HTTP POST request to create a Dweet
+    form = DweetForm(request.POST or None)
+    if request.method == "POST":
+        # and then checks the validity of the form 
+        # to then save the form input as a dweet, 
+        # assigns the dweet to the user that sent the request, 
+        # and save the dweet 
+        if form.is_valid():
+            dweet = form.save(commit=False)
+            dweet.user = request.user
+            dweet.save()
+            return redirect("dwitter:dashboard")
+        
+    followed_dweets = Dweet.objects.filter(
+        user__profile__in=request.user.profile.follows.all()
+    ).order_by("-created_at")
+    return render(
+        request, 
+        "dwitter/dashboard.html", 
+        {"form": form, "dweets": followed_dweets}
+    )
 
 def profile_list(request):
     """Creates a profile list from the Profiles created in the DB"""
