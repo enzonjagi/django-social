@@ -46,6 +46,8 @@ class Dweet(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
+        """Displays a clear description of the Dweet"""
+
         return (
             f"{self.user} "
             f"({self.created_at:%Y-%m-%d %H:%M}): "
